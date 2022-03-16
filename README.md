@@ -14,4 +14,14 @@
 
 - Prerequisite: 15 points at Stage I in Computer Science or Statistics
 
+## How to pass the courese?
+
+All you need to rememeber is five points!
+
+1. Attend all lectures!
+2. Complete a weekly lab and quiz!
+3. Do not leave assignment untill last minute!
+4. Make a lecture note and make a pdf file when you finished the lab!
+5. Post the question in ED discussion if you are concerned the problem!
+
 </details>
