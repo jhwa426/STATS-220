@@ -8,7 +8,7 @@ Most people who are COVID-19 positive will have mild symptoms that can be easily
 
 Note: You might hear different ways to describe isolation like 'self-isolation', 'home quarantine' or 'home isolation'. They all mean isolating away from other members of your household (eg, have no physical contact, minimise time in shared spaces and do not share items such as cutlery and linen), while you remain in your own home.
 
-How to isolate (taratahi) at home [information about isolation] (https://www.healthnavigator.org.nz/health-a-z/c/covid-19-positive-how-to-quarantine-at-home/)
+How to isolate (taratahi) at home [information about isolation](https://www.healthnavigator.org.nz/health-a-z/c/covid-19-positive-how-to-quarantine-at-home/)
 
 ## It is very hard to isolate for 10 days. We totally understand! Please be patience and be kind!
 
