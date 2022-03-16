@@ -16,7 +16,7 @@ Note: You might hear different ways to describe isolation like 'self-isolation',
 
 ## It is very hard to isolate for 10 days. We totally understand! Please be patience and be kind!
 
-![](MyMeme-ironMan.jpeg)
+![Meme-iconMan picture](MyMeme-ironMan.jpeg)
 
 ## How do I isolate at home when I am COVID-19 positive?
 
