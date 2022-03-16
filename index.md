@@ -10,6 +10,10 @@ Note: You might hear different ways to describe isolation like 'self-isolation',
 
 How to isolate (taratahi) at home [information about isolation] (https://www.healthnavigator.org.nz/health-a-z/c/covid-19-positive-how-to-quarantine-at-home/)
 
+## It is very hard to isolate for 10 days. We totally understand! Please be patience and be kind!
+
+![](MyMeme-ironMan.jpeg)
+
 ## How do I isolate at home when I am COVID-19 positive?
 
 If you have been told you are COVID-19 positive, or think you might be COVID-19 positive, it is important that you isolate at home. This means you don’t leave your home and you don’t have visitors to your home. This will help stop the virus from spreading. Being in isolation can be really hard, especially if you live with other people, or in smaller spaces. Read more about preparing for having COVID-19 in your home.
