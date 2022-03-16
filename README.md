@@ -16,7 +16,7 @@
 
 ## How to pass the courese?
 
-All you need to rememeber is five points!
+- The 5 best way to pass the courese
 
 1. Attend **_all lectures_**!
 2. Complete a weekly **_lab_** and **_quiz_**!
