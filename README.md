@@ -1,10 +1,10 @@
 # STATS 220 : Data Technologies
 
+<details>
+
 ## Course Prescription
 
 Explores the processes of data acquisition, data storage and data processing using current computer technologies. Students will gain experience with and understanding of the processes of data acquisition, storage, retrieval, manipulation, and management. Students will also gain experience with and understanding of the computer technologies that perform these processes.
-
-<details>
 
 ## Course Overview
 
