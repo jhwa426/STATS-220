@@ -18,10 +18,10 @@
 
 All you need to rememeber is five points!
 
-1. Attend all lectures!
-2. Complete a weekly lab and quiz!
-3. Do not leave assignment untill last minute!
-4. Make a lecture note and make a pdf file when you finished the lab!
-5. Post the question in ED discussion if you are concerned the problem!
+1. Attend **_all lectures_**!
+2. Complete a weekly **_lab_** and **_quiz_**!
+3. Do not leave **_assignment_** untill last minute!
+4. Make a lecture **_note_** and make **_a pdf file_** when you finished the **_lab_**!
+5. Post the question in **_ED discussion_** if you are concerned the problem!
 
 </details>
