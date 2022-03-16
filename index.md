@@ -1,6 +1,6 @@
 # How do I isolate at home when I am COVID-19 positive?
 
-Welcome to quarantine method site!
+Welcome to the quarantine help site!
 
 ## About isolate (taratahi) at home
 
