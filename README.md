@@ -24,8 +24,8 @@
 4. Make a lecture **_note_** and make **_a pdf file_** when you finished the **_lab_**!
 5. Post the question in **_ED discussion_** if you are concerned the problem!
 
-## Share this to your friends
+## Feel free to share this to your friends!
 
-- [STATS 220 repo](https://github.com/jhwa426/STATS-220)
+- [STATS 220 repository](https://github.com/jhwa426/STATS-220)
 
 </details>
