@@ -1,0 +1,39 @@
+---
+title: "Lab5B"
+author: "Jeff"
+date: "04/04/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(jsonlite)
+
+```
+
+## R Markdown
+```{r}
+apple_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR6jVuO3F3DNwX1WApTvCfYqfjehcNKHmuDqupk2_0vJe0lnf81dmUlsXZGkZKmaCeallS5Dqch05ks/pub?gid=1338968646&single=true&output=csv") %>%
+  slice(13 : 77) %>% mutate(track_name_lower = trackName %>% str_to_lower()) 
+
+track_name_clean <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR6jVuO3F3DNwX1WApTvCfYqfjehcNKHmuDqupk2_0vJe0lnf81dmUlsXZGkZKmaCeallS5Dqch05ks/pub?gid=1338968646&single=true&output=csv") %>%
+  slice(13 : 77) %>% mutate(track_name_lower = trackName %>% str_to_lower() %>% str_remove_all("[[:punct:]]")) %>%
+  separate_rows(track_name_lower, sep = " ")
+
+#length(track_name_clean$track_name_lower)
+
+unique_words <- track_name_clean %>% distinct() %>% group_by(trackName) %>% summarise(num_unique_words = n())
+sum(unique_words$num_unique_words)
+
+unique_words
+```
+
+```{r}
+
+data1 <- read_csv("panopto_data.csv")
+data2 <- read_csv("canvas_data.csv")
+
+combined_data <- left_join(data1, data2, by = "studentId")
+
+```

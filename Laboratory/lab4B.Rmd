@@ -1,0 +1,29 @@
+---
+title: "Lab4B"
+author: "Jeff"
+date: "04/04/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(jsonlite)
+
+```
+
+## R Markdown
+```{r}
+song_data <- fromJSON("https://stat.auckland.ac.nz/~fergusson/stats220/data/lab4B.json")
+
+summarised_data <- song_data %>%
+   mutate(song_speed = ifelse(tempo > 120, "fast", "slow")) %>%
+  group_by(song_speed) %>%
+  summarise(n = n())
+
+summarised_data %>% 
+  ggplot() +
+  geom_col(aes(x = reorder(song_speed, -n), y = n)) +
+  labs(x = "song_speed")
+
+```
