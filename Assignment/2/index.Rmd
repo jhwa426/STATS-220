@@ -1,0 +1,128 @@
+---
+title: "Assignmet 2"
+author: "Jeff Hwang"
+subtitle: "STATS 220 Semester One 2022"
+output:
+  html_document: default
+  word_document: default
+  code_folding: hide
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, fig.width = 6, fig.height = 4, message = FALSE, warning = FALSE, error = FALSE)
+library(tidyverse)
+
+```
+
+
+## Introduction
+
+* This report analyses to demonstrate music listening preferences. The survey form collected the data that behaviours related to listening to music, for example, what people prefer to listen to and in what ways do they listen to music. Also, the survey was collected anonymously. I have collected 30 responses and demonstrated music listening preferences depending on ages and music genres. These outcomes will be helpful when targeting music streaming services on ages and genres.
+
+\
+
+## Links to form and data
+
+CSV link : [Check out the collected data!](https://docs.google.com/spreadsheets/d/e/2PACX-1vR6Z4tIgpPVBpn4DKE-TbHGPOJs5kHAKSIqQz0OGdkQp25U5UDBlqy5NIqTDGJeL1HGktbeDXe8pi4y/pub?output=csv)
+
+Form link : <https://docs.google.com/forms/d/e/1FAIpQLSevtM5EIudX0rybmmWAU4-5PjPVzHRugTvKov5IEyzsHoExyw/viewform?usp=sf_link>
+
+\
+
+## Analytics
+
+* The table below shows 5 rows from the data that I collected from students in The University of Auckland.
+
+```{r CSV data-import for table}
+
+# Read the data from published CSV file into a data frame.
+# Rename the variables of music_data frame and print the five rows of your data
+
+music_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR6Z4tIgpPVBpn4DKE-TbHGPOJs5kHAKSIqQz0OGdkQp25U5UDBlqy5NIqTDGJeL1HGktbeDXe8pi4y/pub?output=csv") %>% rename(age = "How old are you?", music_daily = "How often do you listen to music on a daily basis?", favo_genre = "What are your favorite genres of music?", best3_genre = "If you had to choose your top 3 favorite types of music, what would they be?", music_import = "How is music important in your life? Please type between 1 to 10.", music_ways = "In what ways do you listen to music?", music_streamFee = "How much do you think about the reasonable price of music streaming services per week? Please type a numeric value only.") %>% slice(c(3, 5, 8, 10, 30)) 
+
+music_data %>% knitr::kable()
+
+# The data below for two examples of using inline R code to apply functions to your data frame or variables (extracted as vectors).
+
+ori_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR6Z4tIgpPVBpn4DKE-TbHGPOJs5kHAKSIqQz0OGdkQp25U5UDBlqy5NIqTDGJeL1HGktbeDXe8pi4y/pub?output=csv")
+
+# The data below for a example of using inline R code to apply functions to your data frame or variables (extracted as vectors).
+
+avg_price <- ori_data %>% select("How much do you think about the reasonable price of music streaming services per week? Please type a numeric value only.") %>% sum() / nrow(ori_data)
+```
+
+#### In total, `r nrow(ori_data)` students in The University of Auckland completed music listening preferences form.
+
+\
+\
+
+```{r fig.width = 8, fig.height= 4}
+
+# reload all data in order to demonstrate the plots
+
+plot_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR6Z4tIgpPVBpn4DKE-TbHGPOJs5kHAKSIqQz0OGdkQp25U5UDBlqy5NIqTDGJeL1HGktbeDXe8pi4y/pub?output=csv") %>%
+  rename(age = "How old are you?", music_daily = "How often do you listen to music on a daily basis?", favo_genre = "What are your favorite genres of music?", best3_genre = "If you had to choose your top 3 favorite types of music, what would they be?", music_import = "How is music important in your life? Please type between 1 to 10.", music_ways = "In what ways do you listen to music?", music_streamFee = "How much do you think about the reasonable price of music streaming services per week? Please type a numeric value only.")
+
+```
+
+#### Plot 1: This plot represents the students picking up a favorite the genre.
+
+```{r fig.width = 8, fig.height= 4}
+
+# Build the bar plot for analysing popular music
+
+plot_data %>% ggplot() + geom_bar(aes(x=favo_genre), fill = "#5B7DB1") + labs(title = "Which genre is the most popular?", subtitle = "Comparing genre and number of genres on students' favorite the genre", caption = "Sorce : STATS 220 survey by Jeff Hwang", x = "Genre", y = "Number of genre")
+
+```
+
+##### This plot above shows the most popular genre is Pop and the least popular genre is Jazz.
+
+\
+\
+
+#### Plot 2: This plot shows that how often do students listen to music on a daily basis.
+
+```{r fig.width = 8, fig.height= 4}
+# Build the bar plot horizontally for analysing how often do they listen to music on a daily basis
+
+plot_data %>% ggplot() + geom_bar(aes(y=music_daily), fill="#F56D91") + labs(title = "How often do students listen to music on a daily basis?", subtitle = "Comparing how frequently listen to music on a daily basis and number of count", caption = "Sorce : STATS 220 survey by Jeff Hwang", x = "Number of count", y = "How frequently listen to music on a day")
+
+```
+
+##### This plot above indicates the students most likely listen to music 2-3 times per day.
+
+\
+\
+
+#### Plot 3: This plot shows that how much do students think about the reasonable price of music streaming services per week.
+
+```{r fig.width = 8, fig.height= 4}
+# Build the bar plot for analysing how much do students think about the reasonable price of music streaming services per week.
+
+plot_data %>% ggplot() + geom_bar(aes(x=music_streamFee), fill="#85C88A") + labs(title ="How much do students think the reasonable price of music streaming services per week?", subtitle = "Comparing how students think the reasonable price of music streaming services per week", caption = "Sorce : STATS 220 survey by Jeff Hwang", x = "Price range", y = "Price of music streaming per week")
+
+# The data below for a example of using inline R code to apply functions to your data frame or variables (extracted as vectors).
+
+avg_price <- ori_data %>% select("How much do you think about the reasonable price of music streaming services per week? Please type a numeric value only.") %>% sum() / nrow(ori_data)
+
+```
+
+##### The reasonable price that the students think is $5.
+##### This plot above presents that the students think the average of the reasonable price is $`r round(avg_price,2)` for music streaming services per week.
+
+\
+\
+
+## Learning reflection
+
+* An important idea about a dynamic reporting system is understanding that widely used within markdown and in R code chunks. For instance, we can use in R code chunks like "```{r code here} ```" as well as use R code "inline" as part of markdown like `"r code here"`. These methods help analyse the data dynamically even if a subset of the data changes. What I have re-used two techniques from A1 is **linking to websites** for the survey form and CSV file and **building a structured markdown file** that shows clearly. In addition, I am personally curious if we could extract, transform and load from SQL to R. Because it would be helpful not only unnecessary switching the programming language but also to make more efficient work when dealing with the ETL process for the big data in R programming. Also, these technics will be applied Web Development framework for UI, such as data analysis, visualisation and creating graphs dynamically.
+
+
+\
+\
+
+
+
+
+
