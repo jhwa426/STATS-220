@@ -1,0 +1,124 @@
+---
+title: "Assignment 3"
+subtitle: "STATS 220 Semester One 2022"
+author: "Put your name here"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)
+library(tidyverse)
+library(jsonlite)
+library(RSQLite)
+db_connection <- dbConnect(SQLite(), "boardgamegeek.sqlite")
+```
+
+> Note re formatting! You are welcome to use CSS and additional markdown to style your document but do consider how readable your output is. Make sure you delete instructions like these from this document before your final knit for submission! Please keep echo = TRUE as we want to see your code and your output for this assignment in your HTML.
+
+## Introduction
+
+- Explain **what word** you have used to select books and board games from the Google Books API and boardgamegeek.com. 
+- Also explain what you thought might be similar about books and board games with this word in their name, and what you thought might be different about them.
+- Write at least 100 words.
+
+## Book data
+
+### Sourcing data from the Google Books API
+
+- Make a request to the Google Books API using the `fromJSON()` function and a suitable query.
+- You need to request **40 books** from the API based a query that searches for a certain **word in the title**.
+- Use `knitr::kable()` to include only the variables `volumeInfo.title` and `volumeInfo.publishedDate` as a table in the HTML output
+
+```{r}
+query <- "https://www.googleapis.com/books/v1/volumes?q=data"
+
+response <- fromJSON(query, flatten = TRUE)
+
+book_data <- response$items
+```
+
+### Creating a new data frame
+
+- Create a new data frame called `mini_data` that contains only six variables.
+- Four of these variables must be named `book_title`, `page_count`, `published_date`, and `publisher`.
+- Select and rename two more numeric or character variables of your choice - do not select columns that contain lists or vectors.
+- Arrange your data in ascending order based on `page_count`.
+- Use `knitr::kable()` to include the data frame in the HTML output 
+
+```{r}
+
+```
+
+### Mutating new variables
+
+- Create a new data frame called `mutated_data` that contains all the variables from `mini_data` plus three NEW variables that have been created using the `mutate()` function.
+- One of these variables must be named `year_published` and be created using `str_sub(published_date, 1, 4) %>% as.numeric()`.
+- You can choose how to create the other two NEW variables.
+- Use `knitr::kable()` to include the data frame in the HTML output
+
+```{r}
+
+```
+
+### Producing summaries
+
+- Create a new data frame called `summarised_data` which demonstrates the use of `group_by()` and `summarise()`.
+- Remember, you might have to use `na.rm = TRUE` when calculating aggregates (e.g. mean, max, etc.).
+- Use `knitr::kable()` to include the data frame in the HTML output.
+- Make a comment about what you learned from the summarised data.
+
+```{r}
+
+```
+
+## Board game data
+
+### Familiarising yourself with the fields/columns of the `boardgames` table
+
+- Use the function `dbListFields(db_connection, "boardgames")` from the {RSQLite} package to view all the fields/columns in the `boardgames` table
+- Make sure **only the first 25 of these fields** are printed when you knit your Rmd to HTML
+
+```{r}
+
+```
+
+### Writing a SQL query
+
+Write a SQL query to the `boardgamegeek.sqlite` database
+
+- Select four different variables from the first 25 fields/columns of the `boardgames` table
+- One of these variables must be `details.yearpublished` and one must be `details.name`
+- Rename all four variables as part of your query
+- Order the rows of your results in descending order based on the year published
+- Create a new variable called `years_since_published` that calculates the number of years since the board game was published
+- Only choose board games where their name contains the word you have selected for this assignment
+- Add one more condition to your query as part of the WHERE clause
+- Limit your results to only 40 rows
+- Save the results of your query as a new data frame called `board_game_data`
+- Use `knitr::kable()` to include the data frame in the HTML output.
+
+```{sql connection = db_connection}
+SELECT `details.name`
+  FROM boardgames
+  LIMIT 10
+```
+
+## Your choice!
+
+Create something using R code and either your books data or your board game data, using any knowledge or techniques from across all three assignments. 
+
+Include your R code, and make sure your creation is outputted when the Rmd is knitted.
+
+Write at least 50 words describing what you created.
+
+```{r}
+
+```
+
+## Learning reflection
+
+Describe in your own words at least ONE important idea you learned from Module 3 *Creating new variables and data tables*.
+
+Discuss what things related to data technologies that you are more curious about exploring further.
+
+Write at least 100 words for this section of your report.

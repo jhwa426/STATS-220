@@ -1,0 +1,31 @@
+---
+title: "temp"
+author: "Jeff"
+date: "23/03/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(spotifyr)
+library(jsonlite)
+```
+
+```{r}
+## Authentication
+Sys.setenv(SPOTIFY_CLIENT_ID = "badf25184ba2489186c38825620b7adb")
+Sys.setenv(SPOTIFY_CLIENT_SECRET = "07f292be15e84c209880cb424f92e4a0")
+
+access_token <- get_spotify_access_token()
+```
+
+
+```{r}
+url <- "https://www.googleapis.com/books/v1/volumes?q=data&startIndex=1&maxResults=40"
+
+response <- fromJSON(url, flatten = TRUE)
+
+data <- response$items
+
+```

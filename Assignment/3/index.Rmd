@@ -1,0 +1,150 @@
+---
+title: "Assignment 3"
+subtitle: "STATS 220 Semester One 2022"
+author: "Jeff Hwang"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Setup R libraries
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)
+library(tidyverse)
+library(jsonlite)
+library(RSQLite)
+db_connection <- dbConnect(SQLite(), "boardgamegeek.sqlite")
+
+```
+\
+
+## Introduction
+
+- The data have been selected from a book about data for analysing, wrangling, and visualisation in Google Books API. This data shows titles, subtitles, authors, publishers, published date, and page count. Also, the board game data contains game names, playing times, published year, game category, and the year since published. Similarly, both data contain their unique id and show a clear title of data and the year published. On the other hand, the different thing is the book data has split into the authors and the publisher for the book. Besides, one of the variables, voulumeinfo.industryIdentifiers, has nested variables such as different ISBN of the book. Other variables are similar characteristics.
+
+\
+\
+
+## Book data
+
+### Sourcing data from the Google Books API
+
+```{r Sourcing data from the Google Books API, echo=FALSE}
+#Request to 40 books from the Google Books API and represent book title and published date as rename variables.
+
+query <- "https://www.googleapis.com/books/v1/volumes?q=data&startIndex=1&maxResults=40"
+
+response <- fromJSON(query, flatten = TRUE)
+
+book_data <- response$items %>% rename(book_title = volumeInfo.title, published_date = volumeInfo.publishedDate) %>% select(book_title, published_date)
+
+book_data %>% knitr::kable()
+
+```
+
+### Creating a new data frame
+
+```{r Creating a new data frame, echo=FALSE}
+# Creating a new data frame with specific columns.
+
+mini_data <- response$items %>% rename(book_title = volumeInfo.title, page_count = volumeInfo.pageCount, published_date = volumeInfo.publishedDate, publisher = volumeInfo.publisher, author = volumeInfo.authors, book_subtitle = volumeInfo.subtitle) %>% select(book_title, book_subtitle, author, publisher, published_date, page_count) %>% arrange(page_count)
+
+mini_data %>% knitr::kable()
+
+```
+
+### Mutating new variables
+
+```{r Mutating new variables, echo=FALSE}
+# Creating mutated new variables.
+
+mutated_data <- mini_data %>% mutate(year_published = str_sub(published_date, 1, 4) %>% as.numeric()) %>% mutate(book_title_included_named_data = ifelse(str_detect(str_to_lower(book_title), "data"),"Yes","No")) %>% mutate(book_title_length = str_count(book_title, " ") +1)
+
+mutated_data %>% knitr::kable()
+
+```
+
+### Producing summaries
+
+```{r Producing summaries, echo=FALSE}
+# This summarised data shows the book that included "Data".
+
+summarised_data <- mutated_data %>% group_by(book_title_included_named_data) %>% summarise(book_title = n())
+
+summaries <- sum(mutated_data$book_title_included_named_data == "Yes", na.rm = TRUE)
+
+summarised_data %>% knitr::kable()
+
+```
+
+- These books are related to data; however, there are different categories of data books, such as **"Visual Insights"**, **"Developing Analytic Talent"**, and **"Mindset Mathematics"** in the title. Thus, I have split it into two sections, and this summarised data shows **`r summaries`** books that included named **"Data"** in the title.
+
+\
+\
+
+## Board game data
+
+### Familiarising with the first 25 fields/columns of the `boardgames` table
+
+```{r list the first 25 columns, echo=FALSE}
+# To list the first 25 columns/fields from a particular table.
+
+first25Fields <- dbListFields(db_connection, "boardgames")
+
+first25Fields[1:25]
+
+```
+
+### Writing a SQL query
+
+* Board game data is based on `boardgamegeek.sqlite` database
+
+```{sql connection = db_connection, output.var = "board_game_data", echo=FALSE}
+-- SQL query
+
+SELECT `details.name` AS "game_name", `details.playingtime` AS "playing_time", `details.yearpublished` AS "published_year", `attributes.boardgamecategory` AS "board_game_category", (DATE('now')-`details.yearpublished`) AS "years_since_published"
+  FROM boardgames
+  WHERE "playing_time" >= 60 AND "board_game_category" LIKE '%Adventure%'
+  ORDER BY "published_year" DESC
+  LIMIT 40
+  
+```
+
+```{r, echo=FALSE}
+# Finalising data frame.
+board_game_data %>% knitr::kable()
+```
+
+\
+\
+
+## Your choice!
+
+* This data is about the **negotiation board game**. It comprises **50 games** with **three minimum players (family size)**, **1 hour of playing time** at least and **an average rating above 6.0**. This sorted data focuses on people interested in negotiating board games for family size. These board games are also filtered by a high rating of the game that guarantees to enjoy.
+
+```{sql connection = db_connection, output.var = "negotiation_board_game_data", echo=FALSE}
+-- SQL query
+
+SELECT `details.name` AS "game_name", `attributes.boardgamecategory` AS "board_game_category", `details.minplayers` AS "minimun_players", `details.maxplayers` AS "maximum_players", `details.playingtime` AS "playing_time", ROUND(`stats.average`, 2) AS "average_rating"
+  FROM boardgames
+  WHERE "minimun_players" >= 3 AND "board_game_category" LIKE "%Negotiation%" AND (`polls.suggested_numplayers.3` = "Recommended" OR `polls.suggested_numplayers.3` = "Best") AND playing_time >= 60 AND average_rating >= 6.0
+  ORDER BY "average_rating" DESC
+  LIMIT 50
+  
+```
+
+```{r, echo=FALSE}
+# Finalising data frame.
+negotiation_board_game_data %>% knitr::kable()
+
+```
+
+\
+\
+
+## Learning reflection
+
+* What I have learned important idea from Module 3 is creating data using API and building data tables using SQL queries in a database. The critical idea is to request a specific API in the JSON file and analyse the rows and columns data. After analysing rows and columns, we could extract the data to a new variable and rename columns. Also, we could mutate the specific column for representation in the table. The second key is connecting the database and figuring out what the rows and columns contain data using the SQL queries. With the SQL queries, it is dynamically easy to transform the columns, showing multiple data views. Compared to using API in the JSON file, the SQL queries are more interactive. In addition, I am personally curious about creating the Entity-relationship model diagram in R. There are remarkable visualisations in R, and the Entity-relationship model diagram precisely helps build the SQL queries. This technic will lead work efficency from the SQL for analysis and visualisation in R.
+
+
+\
+\
