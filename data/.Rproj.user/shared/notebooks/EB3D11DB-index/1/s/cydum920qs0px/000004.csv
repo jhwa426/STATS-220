@@ -1,0 +1,4 @@
+"0",""
+"0","# The data below for a example of using inline R code to apply functions to your data frame or variables (extracted as vectors)."
+"0","avg_price <- ori_data %>% select(""How much do you think about the reasonable price of music streaming services per week? Please type a numeric value only."") %>% sum() / nrow(ori_data)"
+"0",""

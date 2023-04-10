@@ -1,0 +1,8 @@
+"0","-- SQL query
+
+SELECT `details.name` AS ""game_name"", `details.playingtime` AS ""playing_time"", `details.yearpublished` AS ""published_year"", `attributes.boardgamecategory` AS ""board_game_category"", (DATE('now')-`details.yearpublished`) AS ""years_since_published""
+  FROM boardgames
+  WHERE ""playing_time"" >= 60 AND ""board_game_category"" LIKE '%Adventure%'
+  ORDER BY ""published_year"" DESC
+  LIMIT 40
+  "

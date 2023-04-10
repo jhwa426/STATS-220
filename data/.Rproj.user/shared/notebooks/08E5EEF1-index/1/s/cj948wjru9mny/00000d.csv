@@ -1,0 +1,4 @@
+"0","spotify_data <- fromJSON(""spotify.json"") %>%"
+"0","  mutate(popularity = ifelse(track_popularity < 20, ""Low popularity"", ""High popularity"")) %>% mutate(year_released = str_sub(release_date, 1, 4) %>% as.numeric()) %>% slice(1:100)"
+"0",""
+"0","ggplot(data = spotify_data) + geom_bar(aes(x = year_released, fill = popularity)) + labs(title = ""BTS hit lists in the world"", x = ""Song released year"", y = ""Song popularity"", caption = ""Data source : Spotify playlist"")"

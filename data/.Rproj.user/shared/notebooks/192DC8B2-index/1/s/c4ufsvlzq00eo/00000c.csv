@@ -1,0 +1,5 @@
+"0","# Creating a new data frame with specific columns."
+"0",""
+"0","mini_data <- response$items %>% rename(book_title = volumeInfo.title, page_count = volumeInfo.pageCount, published_date = volumeInfo.publishedDate, publisher = volumeInfo.publisher, author = volumeInfo.authors, book_subtitle = volumeInfo.subtitle) %>% select(book_title, book_subtitle, author, publisher, published_date, page_count) %>% arrange(page_count)"
+"0",""
+"0","mini_data %>% knitr::kable()"

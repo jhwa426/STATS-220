@@ -1,0 +1,5 @@
+"0","# Combine and flatten frames
+frames <- image_composite(country, noWar)
+"
+"2","Error in assert_image(image) : object 'country' not found
+"

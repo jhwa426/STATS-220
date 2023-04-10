@@ -1,0 +1,5 @@
+"0",""
+"0","# Combine and flatten frames"
+"0","frames <- image_composite(country, noWar)"
+"0","animation <- image_animate(frames, fps = 10, optimize = TRUE)"
+"0","print(animation)"

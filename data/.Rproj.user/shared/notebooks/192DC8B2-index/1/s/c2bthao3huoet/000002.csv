@@ -1,0 +1,4 @@
+"0","# Finalising data frame."
+"0","board_game_data %>% knitr::kable()"
+"2","Error in knitr::kable(.) : object 'board_game_data' not found
+"

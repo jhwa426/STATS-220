@@ -1,0 +1,42 @@
+"0","apple_data <- read_csv(""https://docs.google.com/spreadsheets/d/e/2PACX-1vR6jVuO3F3DNwX1WApTvCfYqfjehcNKHmuDqupk2_0vJe0lnf81dmUlsXZGkZKmaCeallS5Dqch05ks/pub?gid=1338968646&single=true&output=csv"") %>%"
+"0","  slice(13 : 77) %>% mutate(track_name_lower = trackName %>% str_to_lower()) "
+"1","[1m[1mRows: [1m[22m[34m[34m100[34m[39m [1m[1mColumns: [1m[22m[34m[34m35[34m[39m
+"
+"1","[36m──[39m [1m[1mColumn specification[1m[22m [36m─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (22): wrapperType, kind, artistName, collectionName, trackName, collectionCensoredName, trackCensoredName, artistViewUrl, collectionViewUrl,...
+[32mdbl[39m  (11): artistId, collectionId, trackId, trackPrice, discCount, discNumber, trackCount, trackNumber, trackTimeMillis, collectionPrice, collect...
+[33mlgl[39m   (1): isStreamable
+[34mdttm[39m  (1): releaseDate
+"
+"1","
+[36mℹ[39m Use [38;5;235m[48;5;253m[38;5;235m[48;5;253m`spec()`[48;5;253m[38;5;235m[49m[39m to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set [38;5;235m[48;5;253m[38;5;235m[48;5;253m`show_col_types = FALSE`[48;5;253m[38;5;235m[49m[39m to quiet this message.
+"
+"0","track_name_clean <- read_csv(""https://docs.google.com/spreadsheets/d/e/2PACX-1vR6jVuO3F3DNwX1WApTvCfYqfjehcNKHmuDqupk2_0vJe0lnf81dmUlsXZGkZKmaCeallS5Dqch05ks/pub?gid=1338968646&single=true&output=csv"") %>%"
+"0","  slice(13 : 77) %>% mutate(track_name_lower = trackName %>% str_to_lower() %>% str_remove_all(""[[:punct:]]"")) %>%"
+"0","  separate_rows(track_name_lower, sep = "" "")"
+"1","[1m[1mRows: [1m[22m[34m[34m100[34m[39m [1m[1mColumns: [1m[22m[34m[34m35[34m[39m
+"
+"1","[36m──[39m [1m[1mColumn specification[1m[22m [36m─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (22): wrapperType, kind, artistName, collectionName, trackName, collectionCensoredName, trackCensoredName, artistViewUrl, collectionViewUrl,...
+[32mdbl[39m  (11): artistId, collectionId, trackId, trackPrice, discCount, discNumber, trackCount, trackNumber, trackTimeMillis, collectionPrice, collect...
+[33mlgl[39m   (1): isStreamable
+[34mdttm[39m  (1): releaseDate
+"
+"1","
+[36mℹ[39m Use [38;5;235m[48;5;253m[38;5;235m[48;5;253m`spec()`[48;5;253m[38;5;235m[49m[39m to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set [38;5;235m[48;5;253m[38;5;235m[48;5;253m`show_col_types = FALSE`[48;5;253m[38;5;235m[49m[39m to quiet this message.
+"
+"0","View(apple_data)"
+"0",""
+"0","#length(track_name_clean$track_name_lower)"
+"0",""
+"0","unique_words <- track_name_clean %>% distinct() %>% group_by(trackName) %>% summarise(num_unique_words = n())"
+"0","sum(unique_words$num_unique_words)"
+"1","[1]"
+"1"," 171"
+"1","
+"
+"0","unique_words"

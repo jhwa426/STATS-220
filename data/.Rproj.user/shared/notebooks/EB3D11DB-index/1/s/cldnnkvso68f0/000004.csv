@@ -1,0 +1,3 @@
+"0",""
+"0","ori_data %>% ggplot() + geom_bar(aes(x=favo_genre), fill = ""#5B7DB1"") + labs(title = ""Which genre is the most popular?"", subtitle = ""Comparing genre and number of genres on students' favorite the genre"",caption = ""Sorce : STATS 220 survey by Jeff Hwang"", x = ""Genre"", y = ""Number of genre"")"
+"0",""

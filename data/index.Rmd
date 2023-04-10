@@ -1,0 +1,76 @@
+---
+title: "Assignment 5"
+subtitle: "STATS 220 Semester One 2022"
+author: "Jeff Hwang"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+# Setup R libraries
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)
+library(tidyverse)
+library(jsonlite)
+library(gganimate)
+library(rvest)
+```
+
+
+```{css, echo=FALSE}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Sacramento&display=swap');
+
+h2 {
+  color: #E15FED;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #F4FCD9;
+}
+
+padding { 
+  10px
+}
+
+```
+
+\
+
+## Introduction
+
+- 
+
+\
+
+## Code appendix
+
+```{r file='data_web.R', eval=FALSE, echo = TRUE}
+##Part A
+
+```
+
+\
+
+```{r file='data_api.R', eval=FALSE, echo = TRUE}
+##Part B
+
+
+```
+
+\
+
+```{r file='data_join.R', eval=FALSE, echo = TRUE}
+##Part C
+
+
+```
+
+\
+
+```{r file='data_viz.R', eval=FALSE, fig.width = 12, fig.height= 5, echo = TRUE}
+##Part D
+
+
+```
+
+

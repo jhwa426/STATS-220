@@ -1,0 +1,3 @@
+"0",""
+"0","ori_data %>% ggplot() + geom_bar(aes(x=favo_genre), fill = ""#5B7DB1"")"
+"0",""

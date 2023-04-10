@@ -1,0 +1,7 @@
+"0",""
+"0","summarised_data <- mutated_data %>% group_by(book_title_included_data) %>% summarise(book_title = n())"
+"0",""
+"0",""
+"0","summaries <- sum(summarised_data$book_title_included_data == ""yes"", na.rm = TRUE)"
+"0",""
+"0","summarised_data %>% knitr::kable()"

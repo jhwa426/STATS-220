@@ -1,0 +1,8 @@
+"0","files_vector <- c(""lyrics1.csv"", ""lyrics2.csv"", ""lyrics3.csv"", ""lyrics4.csv"", ""lyrics5.csv"", ""lyrics6.csv"", ""lyrics7.csv"", ""lyrics8.csv"", ""lyrics9.csv"", ""lyrics10.csv"", ""lyrics11.csv"", ""lyrics12.csv"")"
+"0",""
+"0","lyrics_data <- map_df(1:length(files_vector), function(i){"
+"0","  file_name <- paste0(""lyrics/"", files_vector[{"".csv""}])"
+"0","  read_csv(file_name)"
+"0","})"
+"2","Error: 'lyrics/NA' does not exist in current working directory ('/Users/jeff/Jeff's Data/Study/University of Auckland/2022/2022 Semester 1/STATS 220/Laboratory').
+"

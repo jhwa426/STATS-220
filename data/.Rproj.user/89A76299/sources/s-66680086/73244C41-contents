@@ -1,0 +1,82 @@
+---
+title: "Lab6A"
+author: "Jeff"
+date: "04/04/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(jsonlite)
+library(gganimate)
+library(rvest)
+
+```
+
+## R Markdown
+```{r}
+#q1
+headlines_data <- read_csv("https://stat.auckland.ac.nz/~fergusson/stats220/data/covid_headlines.csv") %>%
+  slice(152 : 372)
+
+## read rows and columns
+headlines_data[46,3]
+
+#q2
+headline_words1 <- "Coronavirus: Inside a negative pressure isolation room"
+headline_words1 %>% str_squish() %>% str_split(" ") %>% unlist()
+
+#q3
+headline_words2 <- "As China fights coronavirus, some say it has gone too far"
+headline_words2 %>% str_squish() %>% str_split(" ") %>% unlist() %>% length()
+
+#q4
+all_words <- union(headline_words1, headline_words2) %>% length()
+print(all_words)
+
+#q5
+same_words <-intersect(headline_words1, headline_words2) %>% length()
+print(same_words)
+
+
+```
+
+```{r}
+
+#q6
+get_similarity <- function(phrase1, phrase2){
+  
+  words1 <- phrase1 %>% str_squish() %>% str_split(" ") %>% unlist()
+  words2 <- phrase2 %>% str_squish() %>% str_split(" ") %>% unlist()
+  
+  num_same <- intersect(words1, words2) %>% length()
+  num_total <- union(words1, words2) %>% length()
+  
+  num_same / num_total # remember last thing created is returned by default, or use return()
+}
+
+
+phrase1_m <- "The media has completely overblown coronavirus – but maybe not"
+phrase2_m <- "Coronavirus clampdown: EU to seal borders for a month"
+
+get_similarity(phrase1_m, phrase2_m) %>% round(1)
+
+#q7
+compare_headlines <- tibble(headline1 = headlines_data$headline[1:100], headline2 = headlines_data$headline[101:200])
+
+similarity_data <- compare_headlines %>% rowwise() %>% mutate(similarity_score = get_similarity(headline1, headline2))
+
+#similarity_data[63,3] %>% round(1)
+
+
+#q8
+similarity_data[3] %>% max() %>% round(1)
+
+#q9
+mean1 <- similarity_data %>% select(similarity_score) %>% sum()/100
+mean1 %>% round(1)
+
+
+
+```

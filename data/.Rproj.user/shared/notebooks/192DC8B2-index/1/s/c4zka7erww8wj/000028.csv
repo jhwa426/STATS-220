@@ -1,0 +1,8 @@
+"0","-- SQL query
+
+SELECT `details.name` AS ""game_name"", `attributes.boardgamecategory` AS ""board_game_category"", `details.minplayers` AS ""minimun_players"", `details.maxplayers` AS ""maximum_players"", `details.playingtime` AS ""playing_time"", ROUND(`stats.average`, 2) AS ""average_rating""
+  FROM boardgames
+  WHERE ""minimun_players"" >= 3 AND ""board_game_category"" LIKE ""%Negotiation%"" AND (`polls.suggested_numplayers.3` = ""Recommended"" OR `polls.suggested_numplayers.3` = ""Best"") AND playing_time >= 60 AND average_rating >= 6.0
+  ORDER BY ""average_rating"" DESC
+  LIMIT 50
+  "

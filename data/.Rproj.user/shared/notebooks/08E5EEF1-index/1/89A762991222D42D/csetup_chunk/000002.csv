@@ -1,0 +1,7 @@
+"0","# Setup R libraries"
+"0",""
+"0","knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)"
+"0","library(tidyverse)"
+"0","library(gganimate)"
+"0","library(jsonlite)"
+"0",""

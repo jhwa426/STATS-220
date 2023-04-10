@@ -1,0 +1,24 @@
+"0","knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)"
+"0","library(magick)"
+"2","Linking to ImageMagick 6.9.12.3
+Enabled features: cairo, fontconfig, freetype, heic, lcms, pango, raw, rsvg, webp
+Disabled features: fftw, ghostscript, x11
+"
+"0","library(tidyverse)"
+"0","library(jsonlite)"
+"0","library(RSQLite)"
+"2","Warning:"
+"2"," package ‘RSQLite’ was built under R version 4.1.2
+"
+"0","library(gganimate)"
+"0","library(rvest)"
+"0","library(lubridate)"
+"2","
+Attaching package: ‘lubridate’
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+"

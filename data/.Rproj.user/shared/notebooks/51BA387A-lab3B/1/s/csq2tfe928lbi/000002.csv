@@ -1,0 +1,5 @@
+"0","## Authentication"
+"0","Sys.setenv(SPOTIFY_CLIENT_ID = ""badf25184ba2489186c38825620b7adb"")"
+"0","Sys.setenv(SPOTIFY_CLIENT_SECRET = ""07f292be15e84c209880cb424f92e4a0"")"
+"0",""
+"0","access_token <- get_spotify_access_token()"

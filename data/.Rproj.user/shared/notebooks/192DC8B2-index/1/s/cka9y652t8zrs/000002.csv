@@ -1,0 +1,5 @@
+"0","# Creating mutated new variables."
+"0",""
+"0","mutated_data <- mini_data %>% mutate(year_published = str_sub(published_date, 1, 4) %>% as.numeric()) %>% mutate(book_title_included_named_data = ifelse(str_detect(str_to_lower(book_title), ""data""),""Yes"",""No"")) %>% mutate(book_title_length = str_count(book_title, "" "") +1)"
+"0",""
+"0","mutated_data %>% knitr::kable()"

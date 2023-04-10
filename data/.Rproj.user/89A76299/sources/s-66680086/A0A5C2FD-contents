@@ -1,0 +1,87 @@
+---
+title: "STATS 220 S1 EXAM"
+author: "Jeff"
+date: "17/06/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)
+library(magick)
+library(tidyverse)
+library(jsonlite)
+library(RSQLite)
+library(gganimate)
+library(rvest)
+library(lubridate)
+
+```
+
+
+```{r}
+#Practice question
+
+query <- "https://stat.auckland.ac.nz/~fergusson/stats220/data/lab3b_json14"
+
+song_data <- fromJSON(query, flatten = TRUE)
+
+#Q1
+song_data <- fromJSON(query, flatten = TRUE)
+
+#Q2
+song_data %>% pull(duration_ms) %>% length()
+
+#Q3
+song_data %>% pull(duration_ms) %>% median()
+
+#Q4
+song_data %>% pull(track_popularity) %>% unique() %>% length()
+
+#Q5
+song_data <- fromJSON(query) %>%
+  separate_rows(artist_name, sep = ", ") %>% pull(artist_name) %>%
+  unique() %>%
+  length()
+
+song_data
+
+#Q6
+song_data_filtered <- song_data %>%
+  filter(track_popularity > 79 & str_detect(str_to_lower(artist_genre), "pop"))
+
+nrow(song_data_filtered)
+
+#Q7
+pop_songs <- song_data %>%
+  mutate(pop_songs = ifelse(str_detect(str_to_lower(artist_genre),
+                                           "pop"),"yes","no"))
+
+pop_songs
+
+#Q8
+pop_songs <- song_data %>%
+  mutate(pop_songs = ifelse(str_detect(str_to_lower(artist_genre),
+                                           "pop"),"yes","no"))
+
+personal_songs %>%
+  group_by(pop_songs) %>%
+  summarise(median_duration = median(track_popularity))
+
+#Q9-Q10
+long_songs <- song_data %>%
+  mutate(track_name_num_words = str_count(track_name, " ") +1) %>%
+  mutate(track_name_num_words_mores = ifelse(track_name_num_words > 3, "yes", "no"))
+long_songs
+
+sum(long_songs$track_name_num_words_mores == "yes")
+```
+
+
+
+```{r}
+
+
+
+
+```
+

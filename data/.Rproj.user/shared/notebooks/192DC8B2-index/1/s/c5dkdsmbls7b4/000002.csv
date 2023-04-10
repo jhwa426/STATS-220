@@ -1,0 +1,2 @@
+"0","# Finalising data frame."
+"0","negotiation_board_game_data %>% knitr::kable()"

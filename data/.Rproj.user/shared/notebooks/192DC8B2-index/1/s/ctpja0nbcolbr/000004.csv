@@ -1,0 +1,11 @@
+"0",""
+"0","mutated_data <- mini_data %>% mutate(book_title_lower = str_to_lower(book_title)) %>% mutate(book_title_data = ifelse(str_detect(str_to_lower(artist_genre), ""data""),""yes"",""no""))"
+"1","[1m[33mError[39m in [38;5;232m[38;5;235m[48;5;253m[38;5;235m[48;5;253m`mutate()`[48;5;253m[38;5;235m[49m[38;5;232m[39m:[22m
+[38;5;232m[33m![38;5;232m Problem while computing `book_title_data = ifelse(...)`.[39m
+[1mCaused by error in [38;5;232m[38;5;235m[48;5;253m[38;5;235m[48;5;253m`stri_trans_tolower()`[48;5;253m[38;5;235m[49m[38;5;232m[39m:[22m
+[33m![39m object 'artist_genre' not found
+Backtrace:
+[90m  1. [39m... %>% ...
+[90m 10. [39m[1mstringr[22m::str_to_lower(artist_genre)
+[90m 11. [39m[1mstringi[22m::stri_trans_tolower(string, locale = locale)
+"

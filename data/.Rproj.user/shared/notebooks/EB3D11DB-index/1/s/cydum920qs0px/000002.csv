@@ -1,0 +1,2 @@
+"0",""
+"0","plot_data %>% ggplot() + geom_bar(aes(x=music_streamFee), fill=""#85C88A"") + labs(title =""How much do you think about the reasonable price of music streaming services per a week"", subtitle = ""Comparing how students think the reasonable price of music streaming services per a week"", caption = ""Sorce : STATS 220 survey by Jeff Hwang"", x = ""Price range"", y = ""Price of music streaming per a week"")"

@@ -1,0 +1,8 @@
+"0","# Setup R libraries"
+"0",""
+"0","knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)"
+"0","library(tidyverse)"
+"0","library(jsonlite)"
+"0","library(RSQLite)"
+"0","db_connection <- dbConnect(SQLite(), ""boardgamegeek.sqlite"")"
+"0",""

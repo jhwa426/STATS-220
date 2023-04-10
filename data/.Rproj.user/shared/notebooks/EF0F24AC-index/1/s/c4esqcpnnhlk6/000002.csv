@@ -1,0 +1,8 @@
+"0","# Read Ukraine and Russia image"
+"0","country <- image_read(""https://img.haarets.co.il/img/1.10599481/505630423.jpg"") %>% image_scale(500)"
+"0",""
+"0","# Read No war gif"
+"0","noWar <- image_read(""https://media4.giphy.com/media/Zwb23KhgIRQgiTmapc/giphy.gif"") %>% image_scale(100)"
+"0",""
+"0","# Check image information"
+"0","image_info(country)"

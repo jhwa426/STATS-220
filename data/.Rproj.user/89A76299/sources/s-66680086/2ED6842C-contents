@@ -1,0 +1,233 @@
+---
+title: "Assignment 5"
+subtitle: "STATS 220 Semester One 2022"
+author: "Jeff Hwang"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+# Setup R libraries
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)
+library(tidyverse)
+library(jsonlite)
+library(gganimate)
+library(rvest)
+```
+
+
+```{css, echo=FALSE}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Sacramento&display=swap');
+
+h2 {
+  color: #00FFAB;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #F9F3EE;
+}
+
+padding { 
+  10px
+}
+
+```
+
+\
+
+## Introduction
+
+- The data below is shown the top 100 playlists in **New Zealand and South Korea**, which were collected from 30th May to 31st May on apple music. This collected data indicates the **trend of how moves the music chart flows daily**, and it helps to analyse **what people are interested in the genre of music**.
+
+\
+
+## Visualisation 
+
+- The data visualisation shows **which artist is more interested in pop genre music** based on the top 50 New Zealand and South Korean artists. It can be clearly seen that Harry Styles is the most interesting pop genre music. On the other hand, Lost Frequencies & Calum Scott are not interested in pop genre music.
+
+\
+
+![song_visualisation](song_vis.png)
+
+\
+
+## Data creation
+
+- The data was created in two different countries, New Zealand and South Korea, for two days. It was collected two countries' playlists each day, and I could see **how the music chart changed for two days**. In addition, **the data collection was based on URLs and extracted by track ids**.
+
+\
+
+## Final reflection
+
+- What I have learned important idea from Module 5 is collecting data using website scripting, and the critical idea is to understand how HTML structure is composed and which part I could script the exact data. Overall reflection, the critical technique across all the assignments is how to deal with websites and data, such as using API in the JSON file and using SQL queries in a database for analysing. After analysing rows and columns, we could create a tremendous data visualisation using ggplot and ggplot2, which helps to understand the data easily. As I have learnt these techniques, I could at least analyse and create the data visualisation from raw data from now on.
+
+\
+
+## Code appendix
+
+```{r file='data_web.R', eval=FALSE}
+##Part A
+
+library(tidyverse)
+library(rvest)
+
+
+#New Zealand 
+urlNZ <- "https://music.apple.com/nz/playlist/top-100-new-zealand/pl.d8742df90f43402ba5e708eefd6d949a"
+page <- read_html(urlNZ)
+
+trackIdNZ30 <- page %>%
+  html_elements(".songs-list") %>%
+  html_elements("a") %>%
+  html_attr("href") %>%
+  .[str_detect(., "song")] %>%
+  str_remove_all("https://music.apple.com/nz/song/")
+
+data_NZ_30_May <- tibble(trackIdNZ30)
+
+
+#South Korea
+urlKR <- "https://music.apple.com/us/playlist/top-100-south-korea/pl.d3d10c32fbc540b38e266367dc8cb00c"
+page <- read_html(urlKR)
+
+trackIdKR30 <- page %>%
+  html_elements(".songs-list") %>%
+  html_elements("a") %>%
+  html_attr("href") %>%
+  .[str_detect(., "song")] %>%
+  str_remove_all("https://music.apple.com/us/song/")
+
+data_KR_30_May <- tibble(trackIdKR30)
+
+
+#New Zealand 
+urlNZ <- "https://music.apple.com/nz/playlist/top-100-new-zealand/pl.d8742df90f43402ba5e708eefd6d949a"
+page <- read_html(urlNZ)
+
+trackIdNZ31 <- page %>%
+  html_elements(".songs-list") %>%
+  html_elements("a") %>%
+  html_attr("href") %>%
+  .[str_detect(., "song")] %>%
+  str_remove_all("https://music.apple.com/nz/song/")
+
+data_NZ_31_May <- tibble(trackIdNZ31)
+
+
+#South Korea
+urlKR <- "https://music.apple.com/us/playlist/top-100-south-korea/pl.d3d10c32fbc540b38e266367dc8cb00c"
+page <- read_html(urlKR)
+
+trackIdKR31 <- page %>%
+  html_elements(".songs-list") %>%
+  html_elements("a") %>%
+  html_attr("href") %>%
+  .[str_detect(., "song")] %>%
+  str_remove_all("https://music.apple.com/us/song/")
+
+data_KR_31_May <- tibble(trackIdKR31)
+
+#Test
+all_data <- tibble(data_NZ_30_May, data_KR_30_May, data_NZ_31_May, data_KR_31_May)
+#all_data <- bind_rows(data_NZ_30_May, data_KR_30_May)
+
+saveRDS(all_data, "all_my_data3.rds")
+
+```
+
+\
+
+```{r file='data_api.R', eval=FALSE}
+##Part B
+
+library(tidyverse)
+library(jsonlite)
+
+##30May
+data_NZKR <-readRDS("all_my_data3.rds")
+
+#30May (NZ)
+trackIdsNZ30 <-data_NZKR$trackIdNZ30 %>% unique() %>% na.omit()
+
+all_the_data30MayNZ <- map_df(1 : length(trackIdsNZ30), function(i){
+  Sys.sleep(2)
+  urlNZ <- paste0("https://itunes.apple.com/lookup?id=", trackIdsNZ30[i])
+  response <- fromJSON(urlNZ)
+  itunes_data <- response$results
+})
+
+#30May (KR)
+trackIdsKR30 <-data_NZKR$trackIdKR30 %>% unique() %>% na.omit()
+
+all_the_data30MayKR <- map_df(1 : length(trackIdsKR30), function(i){
+  Sys.sleep(2)
+  urlKR <- paste0("https://itunes.apple.com/lookup?id=", trackIdsKR30[i])
+  response <- fromJSON(urlKR)
+  itunes_data <- response$results
+})
+
+
+
+##31May
+
+#31May (NZ)
+trackIdsNZ31 <-data_NZKR$trackIdNZ31 %>% unique() %>% na.omit()
+
+all_the_data31MayNZ <- map_df(1 : length(trackIdsNZ31), function(i){
+  Sys.sleep(2)
+  urlNZ <- paste0("https://itunes.apple.com/lookup?id=", trackIdsNZ31[i])
+  response <- fromJSON(urlNZ)
+  itunes_data <- response$results
+})
+
+#31May (KR)
+trackIdsKR31 <-data_NZKR$trackIdKR %>% unique() %>% na.omit()
+
+all_the_data31MayKR <- map_df(1 : length(trackIdsKR31), function(i){
+  Sys.sleep(2)
+  urlKR <- paste0("https://itunes.apple.com/lookup?id=", trackIdsKR31[i])
+  response <- fromJSON(urlKR)
+  itunes_data <- response$results
+})
+
+itunes_data <- bind_rows(all_the_data30MayNZ, all_the_data30MayKR, all_the_data31MayNZ, all_the_data31MayKR)
+
+saveRDS(itunes_data, "itunes_data2.rds")
+
+```
+
+\
+
+```{r file='data_join.R', eval=FALSE}
+##Part C
+
+library(tidyverse)
+
+apple_data30May_31May <- readRDS("all_my_data3.rds") %>% mutate(trackIdNZ30 = as.character(trackIdNZ30))
+itunes_data <- readRDS("itunes_data2.rds") %>% mutate(trackId = as.character(trackId))
+
+
+song_data <- inner_join(apple_data30May_31May, itunes_data, by = c("trackIdNZ30"= "trackId"))
+
+saveRDS(song_data, "song_data.rds")
+
+```
+
+\
+
+```{r file='data_viz.R', eval=FALSE, fig.width = 12, fig.height= 5}
+##Part D
+
+library(tidyverse)
+
+song_data<-readRDS("song_data.rds")
+
+
+mutated_data <- song_data %>% mutate(PopGenre = ifelse(str_detect(str_to_lower(primaryGenreName), "pop"),"Yes","No")) %>% slice(1:50)
+
+plot <- ggplot(data = mutated_data) + geom_jitter(aes(x = artistName, y = PopGenre, colour = PopGenre)) + labs(title = "Which artist is more interested in pop music?", x = "Artist Name", y = "Pop music popularity", caption = "Data source : Apple music playlist") + theme(panel.background = element_rect(fill = "#E8F9FD"))
+
+ggsave("song_vis.png", width = 12, height = 5, units = "in")
+
+```

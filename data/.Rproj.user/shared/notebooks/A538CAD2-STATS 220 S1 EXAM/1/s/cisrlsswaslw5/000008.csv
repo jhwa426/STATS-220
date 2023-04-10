@@ -1,0 +1,11 @@
+"0",""
+"0","#Q8"
+"0","pop_songs_q8 <- song_data %>%"
+"0","  mutate(pop_songs = ifelse(str_detect(str_to_lower(artist_genre),"
+"0","                                           ""pop""),""yes"",""no""))"
+"0",""
+"0","personal_songs %>%"
+"0","  group_by(pop_songs_q8) %>%"
+"0","  summarise(median_duration = median(track_popularity))"
+"2","Error in group_by(., pop_songs_q8) : object 'personal_songs' not found
+"
