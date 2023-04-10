@@ -1,0 +1,77 @@
+---
+title: "Assignmet 1"
+author: "Jeff Hwang"
+subtitle: STATS 220 Semester One 2022
+output:
+  html_document: default
+  word_document: default
+  code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, error = FALSE, message = FALSE, warning = FALSE)
+library(magick)
+library(tidyverse)
+```
+
+```{css}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Sacramento&display=swap');
+
+h4 {
+  color: red;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #EFFFFD;
+}
+
+padding { 
+  10px
+}
+
+```
+
+# Structure the page using second-level headings
+
+
+#### GitHub repository information
+
+* STATS 220 Github repository [Link to my STATS 220 Github repository Click me!](https://github.com/jhwa426/STATS-220)
+
+  This repository is all about how to isolate at home when COVID-19 positive. 
+  We are still against covid-19 and need to protect ourselves. If you are positive, don't be panic!
+  I have shared the way that isolation at home. Check it out!
+
+#### Animated GIF creation
+
+* Let's get animated!
+
+```{r road peace image}
+# Read Ukraine and Russia image
+country <- image_read("https://img.haarets.co.il/img/1.10599481/505630423.jpg") %>% image_scale(500)
+
+# Read No war gif
+noWar <- image_read("https://media4.giphy.com/media/Zwb23KhgIRQgiTmapc/giphy.gif") %>% image_scale(100)
+
+# Check image information
+image_info(country)
+image_info(noWar)
+
+# Combine and flatten frames
+frames <- image_composite(country, noWar)
+animation <- image_animate(frames, fps = 10, optimize = TRUE)
+print(animation)
+```
+
+
+#### Learning reflection
+
+
+* From Module 1 Creating HTML by combining modern technologies, the most important technique is to understand how R code reflects HTML file and is designed to be portable independent. Also, we need to understand between HTML and markdown files. Those are similar text files but the syntax to indicate is totally different. Markdown should be displayed links or images. In addition, a Markdown processor converts the Markdown code to HTML code.
+In order to apply data technologies widely, we need to explore a programming language that can be cooperated with data. Also, we need to be more familiar with R programming for data analysis rather than using excel or tabular data.
+
+
+
+
+

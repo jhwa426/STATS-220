@@ -1,0 +1,75 @@
+---
+title: "Assignment 4"
+subtitle: "STATS 220 Semester One 2022"
+author: "Jeff Hwang"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+# Setup R libraries
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)
+library(tidyverse)
+library(gganimate)
+library(jsonlite)
+
+```
+
+
+```{css}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Sacramento&display=swap');
+
+h2 {
+  color: #E15FED;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #F4FCD9;
+}
+
+padding { 
+  10px
+}
+
+```
+
+\
+
+## Story about the data
+- The data visualisation below is shown the **BTS playlist** in Kpop from 2012. Briefly, the data contains the TOP 100 popular BTS music. The reason why I chose this playlist is to **introduce students who are interested in Kpop music or who get tired of pop music and looking forward to trying other types of music**. One of the hottest musicians in Kpop is BTS which is also popular in the world. I have decided to focus on particular variables, such as the popularity of music. This specific variable helps choose what sort of music is suitable for people who are the first time listening. In this data visualisation, I have used a scatter plot and bar graph to represent music's popularity over time and what album has the most famous tune. I have applied the "grammar of graphics", which shows two sections: high popularity and low popularity. It describes when a BTS song has become widespread. The data indicate that **BTS song has been accounted for popularity, and High popularity value has conspicuously overwhelmed Low popularity value since the second half of 2017**. Also, the bar graph data has been sorted the popular album depending on track popularity score. It helps to select the album when students are caught indecisive. The things that I had tried that collected the old data when BTS debuted for the first time with popular music. However, there was insufficient information on music because the music was not attractive and could not hit the chart, which did not exist. The old data that I collected was shown most likely outliers. Therefore, I have decided to get rid of it in the data. Overall, both data contain sufficient information on choosing the BTS music and album for people who enter Kpop music. In particular, "gganimate visualisations" helps understand how BTS music has become widespread.
+
+\
+
+```{r fig.width = 12, fig.height= 5}
+
+##Data 1
+
+spotify_data <- fromJSON("spotify.json") %>%
+  mutate(popularity = ifelse(track_popularity < 20, "Low popularity", "High popularity")) %>% mutate(year_released = str_sub(release_date, 1, 4) %>% as.numeric()) %>% arrange(desc(track_popularity)) %>% slice(1:100)
+
+plot1 <- ggplot(data = spotify_data) + geom_jitter(aes(x = year_released, y = popularity, colour = popularity)) + labs(title = "When has BTS music become popular in the world?", x = "Song released year", y = "Song popularity", caption = "Data source : Spotify playlist") + theme(panel.background = element_rect(fill = "#E8F9FD")) + facet_wrap(vars(popularity)) + xlim(2012, 2022)
+
+
+## gganimate visualisations
+plot1 + transition_reveal(year_released)
+
+```
+
+\
+
+```{r fig.width = 12, fig.height= 5}
+
+##Data 2
+
+best_bts_song <- spotify_data %>% select(track_name, track_album_name, artist_name, track_popularity)
+  
+summarised_data <- best_bts_song %>% group_by(track_album_name) %>% summarise(song_count = n()) %>% arrange(desc(song_count)) %>% slice(1:10)
+
+plot2 <- summarised_data %>% ggplot(aes(song_count, track_album_name)) + geom_col(aes(fill = song_count), position = "dodge") + labs(title = "Which BTS album was the most popular in the world?", x = "Hit count", y = "Album name", caption = "Data source : Spotify playlist") + theme(panel.background = element_rect(fill = "#E8F9FD"))
+
+plot2
+
+```
+
+
